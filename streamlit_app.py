@@ -11,7 +11,7 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 risk_thresh = 0.382
 high_risk_thresh = risk_thresh * 2
 
-def st_shap(ClientID, height=None):
+def st_shap(ClientID):
     client = X2_comb_test.loc[X2_comb_test.index == ClientID, :]
     
     fig = get_waterfall(client)
@@ -25,10 +25,8 @@ if uploaded_model is not None:
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
     X2_comb_test = pd.read_csv(uploaded_file, index_col=0)
-    #st.write(X2_comb_test)
-
-    #with open("C:/Users/Antoine/Documents/GitHub/DS_PRJ7/data/pickle_xgb_model", 'rb') as file:
-            #modfit_xgb = pickle.load(file)
+    
+if (uploaded_model is not None) & (uploaded_file is not None):
     
     client_id_list = tuple(X2_comb_test.index.unique().tolist())
 
