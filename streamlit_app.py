@@ -74,7 +74,7 @@ if (uploaded_model is not None) & (uploaded_file is not None):
         st.markdown(html_temp, unsafe_allow_html = True) 
           
         # following lines create boxes in which user can enter data required to make prediction 
-        ClientID = st.selectbox('Client ID',client_id_list)
+        ClientID = st.selectbox("Veuillez choisir l'ID d'un client ayant déposé un dossier d'emprunt",client_id_list)
         result =""
         interpreter_plot = ""
           
