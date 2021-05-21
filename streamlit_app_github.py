@@ -6,7 +6,7 @@ import pickle
 import shap
 from urllib import request
 import cloudpickle as cp
-from shap.plots import waterfall
+from shap import plots
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 risk_thresh = 0.382
