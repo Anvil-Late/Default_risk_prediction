@@ -6,6 +6,7 @@ import pickle
 import shap
 from urllib import request
 import cloudpickle as cp
+from shap.plots import waterfall
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 risk_thresh = 0.382
@@ -36,7 +37,7 @@ def get_waterfall(x):
     shap_pred_values = pred_explainer(x)
 
     # visualize the first prediction's explanation
-    return shap.plots.waterfall(shap_pred_values[0])
+    return waterfall(shap_pred_values[0])
    
 def prediction(ClientID):   
     
