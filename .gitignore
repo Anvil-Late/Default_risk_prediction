@@ -1,5 +1,4 @@
 *.zip
 *.DS_Store
-*.csv
 *.xlsx
 *checkpoint.ipynb
