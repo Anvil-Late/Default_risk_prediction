@@ -1,4 +1,4 @@
-# Projet n°7
+# Projet n°7 - Modèle de scoring, risque de défaut
 
 Bienvenue dans ce projet de prédictions de risque de défaut de crédit bancaire !
 
