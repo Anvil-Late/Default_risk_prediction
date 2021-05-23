@@ -67,7 +67,7 @@ def main():
     # front end elements of the web page 
     html_temp = """ 
     <div style ="background-color:#ABBAEA;padding:13px"> 
-    <h1 style ="color:black;text-align:center;">API - Prédiction d'octroi de crédit</h1> 
+    <h1 style ="color:black;text-align:center;">Analyse financière pour octroi de crédit</h1> 
     </div> 
     """
       
