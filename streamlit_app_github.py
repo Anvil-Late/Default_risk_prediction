@@ -92,7 +92,7 @@ def main():
         interpreter_plot = st_shap(ClientID)
         st.text('Importance des variables : \n')
         fig2 = shap.summary_plot(shap_values, X2_comb_test)
-        st.pyplot(fig2)
+        st.pyplot(fig2, clear_figure=True)
         
          
 if __name__=='__main__': 
