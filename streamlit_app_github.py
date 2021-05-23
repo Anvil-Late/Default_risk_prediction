@@ -99,11 +99,11 @@ def main():
         xgb_feature_importance.sort_values("importance", ascending = True, inplace = True)
         xgb_top_features = xgb_feature_importance.tail(21)
         fig2, ax = plt.subplots(figsize = (18, 18))
-        xgb_top_features.plot(kind = "barh", ax=ax)
-        plt.yticks(range(0,len(xgb_top_features.index)), 
-                   xgb_top_features.index.map(lambda X : str(X[:40]) + "[...]"), fontsize = 14);
-        plt.legend().set_visible(False)
-        st.pyplot(fig2, clear_figure=True)
+        #xgb_top_features.plot(kind = "barh", ax=ax)
+        #plt.yticks(range(0,len(xgb_top_features.index)), 
+        #           xgb_top_features.index.map(lambda X : str(X[:40]) + "[...]"), fontsize = 14);
+       # plt.legend().set_visible(False)
+        #st.pyplot(fig2, clear_figure=True)
         fig2 = shap.summary_plot(shap_values, X2_comb_test)
         st.pyplot(fig2, clear_figure=True)
         
