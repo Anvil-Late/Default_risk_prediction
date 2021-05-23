@@ -118,7 +118,7 @@ def main():
         st.pyplot(fig2, clear_figure=True)
         
         # Print final text that links to user manual
-        st.markdown("Pour mieux comprendre [l'explication du score](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb#Cascade-d'interpr%C3%A9tation-de-pr%C3%A9diction),  [l'importance des variables](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb#Interpr%C3%A9teur-shap) ainsi que [la nature du modèle](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb#Entra%C3%AEnement-du-mod%C3%A8le),  veuillez consulter [la note méthodolique suivante](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb)",
+        st.markdown("Pour mieux comprendre [l'explication du score](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb#Cascade-d'interpr%C3%A9tation-de-pr%C3%A9diction),  [l'importance des variables](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb#Interpr%C3%A9teur-shap) ainsi que [la nature du modèle](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb#Entra%C3%AEnement-du-mod%C3%A8le),  veuillez consulter [la note méthodologique suivante](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb)",
                     unsafe_allow_html=True)
         
          
