@@ -88,10 +88,11 @@ def main():
             st.warning('{}'.format(result))
         elif risk == 2:
             st.error('{}'.format(result))
-            
+        st.text('Explication du score : \n')
         interpreter_plot = st_shap(ClientID)
-
-        st.pyplot(shap.summary_plot(shap_values, X2_comb_test))
+        st.text('Importance des variables : \n')
+        fig2 = shap.summary_plot(shap_values, X2_comb_test)
+        st.pyplot(fig2)
         
          
 if __name__=='__main__': 
