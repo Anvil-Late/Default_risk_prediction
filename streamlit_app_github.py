@@ -98,7 +98,7 @@ def main():
         fig2, ax = plt.subplots(figsize = (18, 18))
         fig2 = shap.summary_plot(shap_values, X2_comb_test)
         st.pyplot(fig2, clear_figure=True)
-        st.markdown("Pour mieux comprendre l'explication du score,  l'importance des variables ainsi que la nature du modèle,  veuillez consulter [la note méthodolique suivante](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb)",
+        st.markdown("Pour mieux comprendre [l'explication du score](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb#Cascade-d'interpr%C3%A9tation-de-pr%C3%A9diction),  [l'importance des variables](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb#Interpr%C3%A9teur-shap) ainsi que [la nature du modèle](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb#Entra%C3%AEnement-du-mod%C3%A8le),  veuillez consulter [la note méthodolique suivante](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb)",
                     unsafe_allow_html=True)
         
          
