@@ -104,6 +104,8 @@ def main():
                    xgb_top_features.index.map(lambda X : str(X[:40]) + "[...]"), fontsize = 14);
         plt.legend().set_visible(False)
         st.pyplot(fig2, clear_figure=True)
+        fig2 = shap.summary_plot(shap_values, X2_comb_test)
+        st.pyplot(fig2, clear_figure=True)
         
          
 if __name__=='__main__': 
