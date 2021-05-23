@@ -25,6 +25,8 @@ dataset_url = "https://github.com/Anvil-Late/Default_risk_prediction/raw/main/da
 modfit_xgb = cp.load(request.urlopen(pickle_url)) 
 X2_comb_test = pd.read_csv(dataset_url, index_col=0)
 
+explainer = shap.TreeExplainer(modfit_xgb)
+shap_values = explainer.shap_values(X2_comb_test)
 
 
 client_id_list = tuple(X2_comb_test.index.unique().tolist())
@@ -80,13 +82,16 @@ def main():
     # when 'Predict' is clicked, make the prediction and store it 
     if st.button("Predict"): 
         result, risk = prediction(ClientID) 
-        interpreter_plot = st_shap(ClientID)
         if risk == 0:
             st.success('{}'.format(result))
         elif risk  == 1:
             st.warning('{}'.format(result))
         elif risk == 2:
             st.error('{}'.format(result))
+            
+        interpreter_plot = st_shap(ClientID)
+
+        st.pyplot(shap.summary_plot(shap_values, X2_comb_test))
         
          
 if __name__=='__main__': 
