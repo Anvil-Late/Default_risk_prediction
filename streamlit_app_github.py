@@ -24,10 +24,10 @@ pickle_url = "https://github.com/Anvil-Late/Default_risk_prediction/raw/main/dat
 dataset_url = "https://github.com/Anvil-Late/Default_risk_prediction/raw/main/data/preprocessed_testing_set.csv"
 modfit_xgb = cp.load(request.urlopen(pickle_url)) 
 X2_comb_test = pd.read_csv(dataset_url, index_col=0)
+X2_comb_test_stats = X2_comb_test.describe().drop("count")
 
 explainer = shap.TreeExplainer(modfit_xgb)
 shap_values = explainer.shap_values(X2_comb_test)
-
 
 client_id_list = tuple(X2_comb_test.index.unique().tolist())
 
@@ -60,7 +60,7 @@ def prediction(ClientID):
         risk_type = 0
         
     
-    return answer, risk_type
+    return answer, risk_type, client
 
 
 def main():       
@@ -81,7 +81,11 @@ def main():
       
     # when 'Predict' is clicked, make the prediction and store it 
     if st.button("Predict"): 
-        result, risk = prediction(ClientID) 
+        result, risk, client_stats = prediction(ClientID)
+        st.text('Données du client : \n')
+        st.dataframe(client_stats)
+        st.text("Statistiques de l'échantillon : \n")
+        st.dataframe(X2_comb_test_stats)
         if risk == 0:
             st.success('{}'.format(result))
         elif risk  == 1:
@@ -91,19 +95,7 @@ def main():
         st.text('Explication du score : \n')
         interpreter_plot = st_shap(ClientID)
         st.text('Importance des variables : \n')
-        #fig2 = shap.summary_plot(shap_values, X2_comb_test)
-        #st.pyplot(fig2, clear_figure=True)
-        xgb_feature_importance = modfit_xgb.get_booster().get_score(importance_type="gain")
-        xgb_feature_importance = pd.DataFrame.from_dict(xgb_feature_importance, orient = "index")
-        xgb_feature_importance.rename(columns = {0 : "importance"}, inplace = True)
-        xgb_feature_importance.sort_values("importance", ascending = True, inplace = True)
-        xgb_top_features = xgb_feature_importance.tail(21)
         fig2, ax = plt.subplots(figsize = (18, 18))
-        #xgb_top_features.plot(kind = "barh", ax=ax)
-        #plt.yticks(range(0,len(xgb_top_features.index)), 
-        #           xgb_top_features.index.map(lambda X : str(X[:40]) + "[...]"), fontsize = 14);
-       # plt.legend().set_visible(False)
-        #st.pyplot(fig2, clear_figure=True)
         fig2 = shap.summary_plot(shap_values, X2_comb_test)
         st.pyplot(fig2, clear_figure=True)
         
