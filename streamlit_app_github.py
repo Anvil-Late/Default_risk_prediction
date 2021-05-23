@@ -98,6 +98,7 @@ def main():
         fig2, ax = plt.subplots(figsize = (18, 18))
         fig2 = shap.summary_plot(shap_values, X2_comb_test)
         st.pyplot(fig2, clear_figure=True)
+        st.text("Pour mieux comprendre l'explication du score, l'importance des variables ainsi que la nature du modèle \n veuillez consulter [la note méthodolique suivante](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb)")
         
          
 if __name__=='__main__': 
