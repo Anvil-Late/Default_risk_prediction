@@ -13135,6 +13135,7 @@ $( document ).ready(function(){
 <li>L’interprétabilité du modèle</li>
 <li>Les limites et les améliorations possibles</li>
 </ul>
+<p>Le détail du code pour les étapes explicitées dans cette notice sont disponible dans <a href="https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Projet%207.ipynb">le notebook de développement</a></p>
 
 </div>
 </div>
@@ -13151,7 +13152,14 @@ $( document ).ready(function(){
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Comme tout modèle, le notre nécessite un jeu d'entraînement ainsi que des données sur lesquelles le déployer.</p>
 <p>Nous suggérons d'utiliser les clients ayant actuellement souscrit à un crédit comme jeu d'entraînement et les cliens ayant déposé une demande de crédit.</p>
-<p>Le jeu d'entraînement devra être séparé en un sous-jeu d'entraînement et un sous-jeu de validation.</p>
+<p>Le jeu d'entraînement devra être séparé en un sous-jeu d'entraînement (80%) et un sous-jeu de validation (20%).</p>
+<blockquote><p>Note : En phase de développement, il est nécessaire de séparer le jeu de données en 3 :</p>
+<ul>
+<li>Sous-jeu d'entraînement (70% * 80% soit 56% des données)</li>
+<li>Sous-jeu de validation (70% * 20 % soit 14% des données)</li>
+<li>Jeu de test (30% des données)</li>
+</ul>
+</blockquote>
 <p>Il faudra ensuite concaténer toutes les données puis procéder au pré-traitement suivant :</p>
 <ul>
 <li>Supprimer les colonnes de la table <em>application</em> à savoir: 'OWN_CAR_AGE', 'OCCUPATION_TYPE', 'EXT_SOURCE_1', 'EXT_SOURCE_3', 'APARTMENTS_AVG', 'BASEMENTAREA_AVG', 'YEARS_BEGINEXPLUATATION_AVG', 'YEARS_BUILD_AVG', 'COMMONAREA_AVG', 'ELEVATORS_AVG', 'ENTRANCES_AVG', 'FLOORSMAX_AVG', 'FLOORSMIN_AVG', 'LANDAREA_AVG', 'LIVINGAPARTMENTS_AVG', 'LIVINGAREA_AVG', 'NONLIVINGAPARTMENTS_AVG', 'NONLIVINGAREA_AVG', 'APARTMENTS_MODE', 'BASEMENTAREA_MODE', 'YEARS_BEGINEXPLUATATION_MODE', 'YEARS_BUILD_MODE', 'COMMONAREA_MODE', 'ELEVATORS_MODE', 'ENTRANCES_MODE', 'FLOORSMAX_MODE', 'FLOORSMIN_MODE', 'LANDAREA_MODE', 'LIVINGAPARTMENTS_MODE', 'LIVINGAREA_MODE', 'NONLIVINGAPARTMENTS_MODE', 'NONLIVINGAREA_MODE', 'APARTMENTS_MEDI', 'BASEMENTAREA_MEDI', 'YEARS_BEGINEXPLUATATION_MEDI', 'YEARS_BUILD_MEDI', 'COMMONAREA_MEDI', 'ELEVATORS_MEDI', 'ENTRANCES_MEDI', 'FLOORSMAX_MEDI', 'FLOORSMIN_MEDI', 'LANDAREA_MEDI', 'LIVINGAPARTMENTS_MEDI', 'LIVINGAREA_MEDI', 'NONLIVINGAPARTMENTS_MEDI', 'NONLIVINGAREA_MEDI', 'FONDKAPREMONT_MODE', 'HOUSETYPE_MODE', 'TOTALAREA_MODE', 'WALLSMATERIAL_MODE', 'EMERGENCYSTATE_MODE'</li>
@@ -13168,6 +13176,7 @@ $( document ).ready(function(){
 <li>La valeur médiane</li>
 <li>Fusionner avec le dataset principal et imputer aux valeurs manquantes les valeurs médianes du jeu d'entraînement</li>
 </ul>
+<p>Ensuite, prendre la table <em>previous_application</em> , en extraire, pour chaque client ("SK_ID_CURR"), le montant total dés crédits, à savoir la somme de toutes les valeurs de "AMT_CREDIT".</p>
 <p>Pour la table <em>Bureau</em>, appliquer le prétraitement suivant :</p>
 <ul>
 <li>Pour chaque variable numérique de chaque client, extraire le nombre d'observations, la moyenne, le maximum, le minimum, et la somme totale</li>
@@ -13184,7 +13193,7 @@ $( document ).ready(function(){
 <li>Faire de la variable "SK_ID_CURR" l'index du dataset</li>
 </ul>
 <p>Une fois le prétraitement fini, séparer le dataset global en sous-sets d'entraînement, de validation, et de déploiement.</p>
-<p>Sauvegarder le jeu de déploiement sous le nom "X2_comb_test.csv" dans un dossier data. C'est ce nom de chemin que le dashboard viendra chercher pour charger les données.</p>
+<p>Sauvegarder le jeu de déploiement sous le nom "preprocessed_testing_set.csv" dans un dossier data. C'est ce nom de chemin que le dashboard viendra chercher pour charger les données.</p>
 
 </div>
 </div>
@@ -13238,6 +13247,14 @@ $( document ).ready(function(){
 <p>Si le modèle optimal renvoyé a une des valeurs maximales pour un des hyperparamètres, relancer l'hyperparamétrage pour ce dernier en étendant l'espace d'exploration.</p>
 <p>Une fois le modèle entraîné, le sauvegarder dans le dossier data sous le nom "pickle_xgb_model" au format pickle.</p>
 <p>Effectuer des prédictions sur le jeu de validation et trouver le seuil pour lequel le modèle obtient 80% de recall.</p>
+<blockquote><p>Rappel : En phase de développement, il est nécessaire de séparer le jeu de données en 3 :</p>
+<ul>
+<li>Sous-jeu d'entraînement (70% * 80% soit 56% des données)</li>
+<li>Sous-jeu de validation (70% * 20 % soit 14% des données)</li>
+<li>Jeu de test (30% des données)</li>
+</ul>
+<p>le modèle doit être entraîné sur un sous-jeu d'entraînement. Son seuil de recall doit être déduit dans le sous-jeu de validation et doit ensuite être testé sur le jeu de test.</p>
+</blockquote>
 
 </div>
 </div>
@@ -13307,6 +13324,9 @@ $( document ).ready(function(){
 <p>Il est donc essentiel de considérer ce seuil comme un seuil de vigilance, et non comme un seuil à partir duquel le dossier de crédit doit être refusé. On peut en revanche considérer que l'on refuse les dossier des 5% des scores les plus élevés et d'ajouter une assurance pour les clients au dessus du seuil. Dans un tel cas de figure, nous pourrions alors regarder quelle est la précision obtenue si nous figeons le seuil pour que seuls les 5% des scores les plus élevés soient détectés (que nous appellerions précision@5).</p>
 <p>Si l'on considère ce modèle comme une preuve de concept, une amélioration à plus long terme serait d'intégrer toutes les tables à l'aide d'un feature engineering plus poussé, et d'explorer plus profondément la méthode prometteuse du réseau de neurones en ajoutant une couche d'embedding dans le cube de données temporelles.</p>
 <p>De plus, il serait intéressant de ne conserver que les couches d'embedding et de LSTM, d'effectuer une feature extraction que l'on insère dans un XGBoost qui saurait peut-être mieux extrapoler les données.</p>
+<p>Plus globalement, une analyse des variables avec un expert du domaine bancaire serait nécessaire pour effectuer une meilleure sélection.</p>
+<p>Du côté des interpréteurs, il serait intéressant d'en intégrer d'autres tels que le LIME pour comparer les résultats.</p>
+<p>Pour finir, le dashboard interactif devra être intégré au travers d'un logiciel plus sécurisé tel que PowerBI ou Tableau afin de s'affranchir des librairies devant se sourcer dans un GitHub public.</p>
 
 </div>
 </div>
