@@ -91,7 +91,7 @@ def prediction(ClientID):
         risk_type = 0
         
     
-    return answer, risk_type, client.loc[:, top_features], pred[0]
+    return answer, risk_type, client.loc[:, top_features], round(pred[0],3)
 
 # Main API function
 def main():       
