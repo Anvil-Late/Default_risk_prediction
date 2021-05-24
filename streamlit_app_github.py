@@ -40,6 +40,18 @@ shap_values = explainer.shap_values(X2_comb_test)
 # Extract all clients to create select box
 client_id_list = tuple(X2_comb_test.index.unique().tolist())
 
+with st.beta_container():
+    st.write("This is inside the container")
+    # Display feature importance plot
+    st.text('Importance des variables : \n')
+    fig2, ax = plt.subplots(figsize = (18, 18))
+    fig2 = shap.summary_plot(shap_values, X2_comb_test)
+    st.pyplot(fig2, clear_figure=True)
+    
+    # Print final text that links to user manual
+    st.markdown("Pour mieux comprendre [l'explication du score](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb#Cascade-d'interpr%C3%A9tation-de-pr%C3%A9diction),  [l'importance des variables](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb#Interpr%C3%A9teur-shap) ainsi que [la nature du modèle](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb#Entra%C3%AEnement-du-mod%C3%A8le),  veuillez consulter [la note méthodologique suivante](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb)",
+                unsafe_allow_html=True)
+
 # This will return the cascade plot
 background = shap.maskers.Independent(X2_comb_test)
 def pred_wrapper(x):
