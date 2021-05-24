@@ -91,7 +91,7 @@ def prediction(ClientID):
         risk_type = 0
         
     
-    return answer, risk_type, client.loc[:, top_features]
+    return answer, risk_type, client.loc[:, top_features], pred[0]
 
 # Main API function
 def main():       
@@ -112,7 +112,7 @@ def main():
       
     # When 'Predict' is clicked, make the prediction, display it and display plots
     if st.button("Predict"): 
-        result, risk, client_stats = prediction(ClientID)
+        result, risk, client_stats, clientscore = prediction(ClientID)
         # Show client data and global statistics
         st.text('Données du client : \n')
         st.dataframe(client_stats)
@@ -126,7 +126,18 @@ def main():
             st.warning('{}'.format(result))
         elif risk == 2:
             st.error('{}'.format(result))
-            
+        
+        fig3, ax3 = plt.subplots(figsize = (18, 2))
+        ax3.axhline(1, 0, risk_thresh, color="green", linewidth = 10)
+        ax3.axhline(1, risk_thresh, high_risk_thresh, color="orange", linewidth = 10)
+        ax3.axhline(1, high_risk_thresh, 1, color="red", linewidth = 10)
+        ax3.text(risk_thresh, 1.3, "{} : seuil de vigilance".format(risk_thresh), color = "orange", fontweight = "bold", fontsize = 14)
+        ax3.text(high_risk_thresh, 1.3, "{} : seuil de haute vigilance".format(high_risk_thresh), color = "red", fontweight = "bold", fontsize = 14)
+        ax3.text(clientscore, 0.8, "X", color = "k", fontweight = "bold", fontsize = 30)
+        ax3.text(clientscore, 0.7, "Score du client", color = "k", fontweight = "bold", fontsize = 14)
+        plt.axis('off')
+        ax3.set_ylim(0, 2)
+        st.pyplot(fig3, clear_figure=True)
         # Show global statistics for client's group
 
         st.text("Statistiques globales des clients sûrs : \n")
@@ -155,4 +166,8 @@ def main():
          
 if __name__=='__main__': 
     main()
+
+import matplotlib.transforms as transforms
+import matplotlib.pyplot as plt
+
 
