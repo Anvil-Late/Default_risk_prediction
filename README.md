@@ -10,7 +10,7 @@ Voici les liens qui peuvent vous faciliter la vie :
 
 ## Notice méthodologique :
 
-[Lien vers la notice](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/main/Note%20M%C3%A9thodologique.ipynb)
+[Lien vers la notice](https://nbviewer.jupyter.org/github/Anvil-Late/Default_risk_prediction/blob/5de0335e5d6442075ef22e57f40c347cd9c233ed/Note%20M%C3%A9thodologique.ipynb)
 
 ## Notebook du projet, contient le script de pré-traitement :
 
