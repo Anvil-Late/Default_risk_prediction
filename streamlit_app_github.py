@@ -120,13 +120,13 @@ def main():
             
         # Show global statistics for client's group
         if risk == 0:
-            st.text("Statistiques des clients sûrs : \n")
+            st.text("Statistiques globales des autres clients sûrs : \n")
             st.dataframe(X2_comb_test_stats_low)
         elif risk  == 1:
-            st.text("Statistiques des clients modérément risqués : \n")
+            st.text("Statistiques globales des autres clients modérément risqués : \n")
             st.dataframe(X2_comb_test_stats_med)
         elif risk == 2:
-            st.text("Statistiques des clients très risqués: \n")
+            st.text("Statistiques globales des autres clients très risqués: \n")
             st.dataframe(X2_comb_test_stats_high)      
             
         # Display waterfall plot
