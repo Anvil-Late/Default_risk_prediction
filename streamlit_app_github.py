@@ -128,15 +128,15 @@ def main():
             st.error('{}'.format(result))
             
         # Show global statistics for client's group
-        if risk == 0:
-            st.text("Statistiques globales des autres clients sûrs : \n")
-            st.dataframe(X2_comb_test_stats_low)
-        elif risk  == 1:
-            st.text("Statistiques globales des autres clients modérément risqués : \n")
-            st.dataframe(X2_comb_test_stats_med)
-        elif risk == 2:
-            st.text("Statistiques globales des autres clients très risqués: \n")
-            st.dataframe(X2_comb_test_stats_high)      
+
+        st.text("Statistiques globales des clients sûrs : \n")
+        st.dataframe(X2_comb_test_stats_low)
+
+        st.text("Statistiques globales des clients modérément risqués : \n")
+        st.dataframe(X2_comb_test_stats_med)
+
+        st.text("Statistiques globales des clients très risqués: \n")
+        st.dataframe(X2_comb_test_stats_high)      
             
         # Display waterfall plot
         st.text('Explication du score : \n')
