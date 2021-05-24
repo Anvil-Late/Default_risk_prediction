@@ -16,6 +16,15 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 risk_thresh = 0.382
 high_risk_thresh = risk_thresh * 2
 
+# Top Features
+top_features = ['EXT_SOURCE_2', 'AMT_GOODS_PRICE', 'DAYS_EMPLOYED', 'bureau_DAYS_CREDIT_mean',
+                'bureau_AMT_CREDIT_MAX_OVERDUE_sum', 'DAYS_BIRTH', 'AMT_CREDIT',
+                'NAME_EDUCATION_TYPE_Higher education', 'CODE_GENDER_F', 
+                'bureau_AMT_CREDIT_SUM_DEBT_mean', 'AMT_ANNUITY', 'CODE_GENDER_M',
+                'SK_DPD_DEF_max', 'DAYS_ID_PUBLISH', 'bureau_DAYS_CREDIT_max',
+                'DAYS_LAST_PHONE_CHANGE', 'TOTAL_AMT_CREDIT', 'NAME_FAMILY_STATUS_Married',
+                'bureau_AMT_CREDIT_SUM_DEBT_sum', 'bureau_DAYS_CREDIT_ENDDATE_max']
+
 # Function that returns the prediction cascade plot
 def st_shap(ClientID):
     client = X2_comb_test.loc[X2_comb_test.index == ClientID, :]
@@ -46,10 +55,10 @@ y_med_risk = (all_preds >= risk_thresh) & (all_preds < high_risk_thresh)
 y_high_risk = all_preds >= high_risk_thresh
 
 # Retrieve global stats with which to compare a client
-X2_comb_test_stats = X2_comb_test.describe().drop("count")
-X2_comb_test_stats_low = X2_comb_test.loc[y_low_risk, :].describe().drop("count")
-X2_comb_test_stats_med = X2_comb_test.loc[y_med_risk, :].describe().drop("count")
-X2_comb_test_stats_high = X2_comb_test.loc[y_high_risk, :].describe().drop("count")
+X2_comb_test_stats = X2_comb_test.loc[:, top_features].describe().drop("count")
+X2_comb_test_stats_low = X2_comb_test.loc[y_low_risk, top_features].describe().drop("count")
+X2_comb_test_stats_med = X2_comb_test.loc[y_med_risk, top_features].describe().drop("count")
+X2_comb_test_stats_high = X2_comb_test.loc[y_high_risk, top_features].describe().drop("count")
 
 # This will return the cascade plot
 background = shap.maskers.Independent(X2_comb_test)
@@ -82,7 +91,7 @@ def prediction(ClientID):
         risk_type = 0
         
     
-    return answer, risk_type, client
+    return answer, risk_type, client.loc[:, top_features]
 
 # Main API function
 def main():       
@@ -146,3 +155,4 @@ def main():
          
 if __name__=='__main__': 
     main()
+
