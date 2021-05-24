@@ -30,9 +30,6 @@ dataset_url = "https://github.com/Anvil-Late/Default_risk_prediction/raw/main/da
 modfit_xgb = cp.load(request.urlopen(pickle_url)) 
 X2_comb_test = pd.read_csv(dataset_url, index_col=0)
 
-# Retrieve global stats with which to compare a client
-X2_comb_test_stats = X2_comb_test.describe().drop("count")
-
 # Prepare feature importance tree
 explainer = shap.TreeExplainer(modfit_xgb)
 shap_values = explainer.shap_values(X2_comb_test)
@@ -40,18 +37,20 @@ shap_values = explainer.shap_values(X2_comb_test)
 # Extract all clients to create select box
 client_id_list = tuple(X2_comb_test.index.unique().tolist())
 
-st.markdown(
-    f'''
-        <style>
-            .sidebar .sidebar-content {{
-                width: 375px;
-            }}
-        </style>
-    ''',
-    unsafe_allow_html=True
-)
+# Do all predictions
+all_preds = modfit_xgb.predict_proba(X2_comb_test)[:,1]
 
-st.sidebar.image("https://github.com/Anvil-Late/Default_risk_prediction/raw/main/images/featureimportance2.png")
+# Subsetters for low, med and high risk clients
+y_low_risk = all_preds < risk_thresh
+y_med_risk = (all_preds >= risk_thresh) & (all_preds < high_risk_thresh)
+y_high_risk = all_preds >= high_risk_thresh
+
+# Retrieve global stats with which to compare a client
+X2_comb_test_stats = X2_comb_test.describe().drop("count")
+X2_comb_test_stats_low = X2_comb_test.loc[y_low_risk, :].describe().drop("count")
+X2_comb_test_stats_med = X2_comb_test.loc[y_med_risk, :].describe().drop("count")
+X2_comb_test_stats_high = X2_comb_test.loc[y_high_risk, :].describe().drop("count")
+
 # This will return the cascade plot
 background = shap.maskers.Independent(X2_comb_test)
 def pred_wrapper(x):
@@ -108,7 +107,7 @@ def main():
         # Show client data and global statistics
         st.text('Données du client : \n')
         st.dataframe(client_stats)
-        st.text("Statistiques de l'échantillon : \n")
+        st.text("Statistiques globales sur l'ensemble des clients : \n")
         st.dataframe(X2_comb_test_stats)
         
         # Display score. Color depends on score
@@ -118,6 +117,17 @@ def main():
             st.warning('{}'.format(result))
         elif risk == 2:
             st.error('{}'.format(result))
+            
+        # Show global statistics for client's group
+        if risk == 0:
+            st.text("Statistiques des clients sûrs : \n")
+            st.dataframe(X2_comb_test_stats_low)
+        elif risk  == 1:
+            st.text("Statistiques des clients modérément risqués : \n")
+            st.dataframe(X2_comb_test_stats_med)
+        elif risk == 2:
+            st.text("Statistiques des clients très risqués: \n")
+            st.dataframe(X2_comb_test_stats_high)      
             
         # Display waterfall plot
         st.text('Explication du score : \n')
