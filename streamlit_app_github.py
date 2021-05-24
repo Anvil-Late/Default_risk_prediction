@@ -131,8 +131,8 @@ def main():
         ax3.axhline(1, 0, risk_thresh, color="green", linewidth = 10)
         ax3.axhline(1, risk_thresh, high_risk_thresh, color="orange", linewidth = 10)
         ax3.axhline(1, high_risk_thresh, 1, color="red", linewidth = 10)
-        ax3.text(risk_thresh, 1.6, "{} : seuil de vigilance".format(risk_thresh), color = "orange", fontweight = "bold", fontsize = 16)
-        ax3.text(high_risk_thresh, 1.6, "{} : seuil de haute \n vigilance".format(high_risk_thresh), 
+        ax3.text(risk_thresh, 1.6, "{} \n seuil de vigilance".format(risk_thresh), color = "orange", fontweight = "bold", fontsize = 16)
+        ax3.text(high_risk_thresh, 1.6, "{} \n seuil de haute vigilance".format(high_risk_thresh), 
                  color = "red", fontweight = "bold", fontsize = 16)
         ax3.text(clientscore, 0.8, "X", color = "k", fontweight = "bold", fontsize = 30)
         ax3.text(clientscore, 0.4, "Score du client", color = "k", fontweight = "bold", fontsize = 16)
