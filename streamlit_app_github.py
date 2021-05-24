@@ -135,7 +135,7 @@ def main():
         ax3.text(high_risk_thresh, 1.6, "{} \n seuil de haute vigilance".format(high_risk_thresh), 
                  color = "red", fontweight = "bold", fontsize = 16)
         ax3.text(clientscore, 0.8, "X", color = "k", fontweight = "bold", fontsize = 30)
-        ax3.text(clientscore, 0.2, ' %0.2f \n score du client' % clientscore, color = "k", fontweight = "bold", fontsize = 16)
+        ax3.text(clientscore, 0.0, 'Score du client \n %0.3f' % clientscore, color = "k", fontweight = "bold", fontsize = 16)
         plt.axis('off')
         ax3.set_ylim(-0.3, 2.5)
         st.pyplot(fig3, clear_figure=True)
