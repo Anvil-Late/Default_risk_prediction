@@ -40,7 +40,7 @@ shap_values = explainer.shap_values(X2_comb_test)
 # Extract all clients to create select box
 client_id_list = tuple(X2_comb_test.index.unique().tolist())
 
-st.sidebar.image("https://github.com/Anvil-Late/Default_risk_prediction/raw/main/images/featureimportance.png")
+st.sidebar.image("https://github.com/Anvil-Late/Default_risk_prediction/raw/main/images/featureimportance2.png")
 # This will return the cascade plot
 background = shap.maskers.Independent(X2_comb_test)
 def pred_wrapper(x):
